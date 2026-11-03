@@ -2,17 +2,17 @@
 by construction. Compares two edit forms on held-out traces:
   proj : remove the restart direction from the neuron's output column (blog-style)
   zero : zero the neuron's output column
-Usage: uv run search_loop_neurons.py   (writes results/search2.json)
+Usage: uv run scripts/analysis/search_loop_neurons.py   (writes results/search/loop_neurons.json)
 """
 
 import json
 
 import torch
 
-from edit_lab import DEV, Lab
-from neuron_selection import as_edit, loop_specific
+from loopfix.paths import ACTS, EDITS, SEARCH, TRACES
+from loopfix.lab import DEV, Lab
+from loopfix.selection import as_edit, loop_specific
 
-TRACES = ["results/base_default.jsonl", "results/base_qwen_reco.jsonl"]
 
 
 def apply_zero(lab, edit):
@@ -42,7 +42,7 @@ def main():
                 results[name] = {"weights_changed": changed, "layers": layers, **m}
                 print(f"{name:<24} changed={changed:>7} layers={layers}  {m}", flush=True)
     lab.reset()
-    json.dump(results, open("results/search2.json", "w"), indent=1)
+    json.dump(results, open(SEARCH / "loop_neurons.json", "w"), indent=1)
 
 
 if __name__ == "__main__":

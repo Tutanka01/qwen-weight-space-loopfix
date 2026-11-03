@@ -1,6 +1,6 @@
 """Measure thinking-loop rate of a model served by LM Studio (OpenAI-compatible API).
 
-Usage: uv run measure.py --config default --out results/base_default.jsonl
+Usage: uv run scripts/eval/measure.py --config default --out results/baseline/default.jsonl
 """
 
 import argparse
@@ -11,6 +11,8 @@ import urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+
+from loopfix.paths import PROMPTS
 
 API = "http://localhost:1234/v1/chat/completions"
 
@@ -79,7 +81,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="qwen3.5-0.8b")
     ap.add_argument("--config", choices=SAMPLING, default="default")
-    ap.add_argument("--prompts", default="data/prompts_fr.jsonl")
+    ap.add_argument("--prompts", default=str(PROMPTS))
     ap.add_argument("--out", required=True)
     # LM Studio shares its context across parallel slots: workers x (max_tokens + prompt) must fit
     # (model loaded with 66816 ctx / 4 slots).

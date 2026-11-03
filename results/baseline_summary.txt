@@ -1,7 +1,0 @@
-file                        subset      n  trunc%  answ%  repet%  med_tok mean_tok
-base_default                all        60    58.3   41.7    63.3     8192     5417
-base_default                persona    30    63.3   36.7    73.3     8192     5829
-base_default                plain      30    53.3   46.7    53.3     8192     5005
-base_qwen_reco              all        60    31.7   70.0     0.0     5262     5507
-base_qwen_reco              persona    30    33.3   66.7     0.0     5294     5583
-base_qwen_reco              plain      30    30.0   73.3     0.0     5223     5431

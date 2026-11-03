@@ -4,7 +4,7 @@
 Edit spec (JSON): {"mode": "zero" | "proj", "layers": {"19": [neuron, ...], ...}}
   zero : W_down[:, j] = 0
   proj : W_down[:, j] -= (d_l . W_down[:, j]) d_l   with d_l from results/acts/dirs.npz
-Usage: uv run write_gguf.py edit.json models/out.gguf
+Usage: uv run scripts/build/write_gguf.py edits/loopfix_q03_top128.json models/loopfix128.gguf
 """
 
 import json
@@ -16,7 +16,7 @@ import numpy as np
 from gguf import GGUFReader
 from gguf.quants import dequantize, quantize
 
-from qwen_gguf import DEFAULT_GGUF
+from loopfix.paths import ACTS, BASE_GGUF as DEFAULT_GGUF
 
 
 def edited_tensor(t, mode, neurons, d):
@@ -48,7 +48,7 @@ def edited_tensor(t, mode, neurons, d):
 
 def main(spec_path, out_path):
     spec = json.loads(Path(spec_path).read_text())
-    dirs = np.load("results/acts/dirs.npz")
+    dirs = np.load(ACTS / "dirs.npz")
     out = Path(out_path)
     shutil.copyfile(DEFAULT_GGUF, out)
     reader = GGUFReader(str(out))

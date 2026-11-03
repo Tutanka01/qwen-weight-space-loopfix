@@ -10,39 +10,17 @@ Proxy metrics on HELD-OUT traces (even prompt ids), teacher-forced:
   neutral_kl  : mean KL(base || edited) of next-token distributions at random positions     (want ~0)
 """
 
-import json
 import random
-import sys
-from pathlib import Path
 
 import numpy as np
 import torch
 import torch.nn.functional as F
 
-from collect_acts import RESTART, build_text, is_discovery
-from qwen_gguf import load
+from loopfix.gguf_model import load
+from loopfix.paths import ACTS
+from loopfix.traces import is_discovery, load_rows, positions
 
-A = Path("results/acts")
 DEV = "mps"
-
-
-def load_rows(paths):
-    return [json.loads(l) for p in paths for l in Path(p).read_text().splitlines() if l.strip()]
-
-
-def positions(tok, r, rng, max_restarts=25, n_neutral=10):
-    prompt, text = build_text(tok, r)
-    enc = tok(text, return_offsets_mapping=True, return_tensors="pt")
-    offsets = enc.offset_mapping[0].tolist()
-    c2t = lambda c: next(i for i, (a, b) in enumerate(offsets) if b > c)
-    rs = [m.start(1) for m in RESTART.finditer(text, len(prompt))]
-    rs = rng.sample(rs, min(max_restarts, len(rs)))
-    pos = {"restart": [c2t(c) - 1 for c in rs], "stop": [], "neutral": []}
-    if not r["truncated"]:
-        pos["stop"] = [len(offsets) - 2]
-    first = c2t(len(prompt))
-    pos["neutral"] = [rng.randrange(first, len(offsets) - 2) for _ in range(n_neutral)]
-    return enc.input_ids, pos
 
 
 class Lab:
@@ -54,7 +32,7 @@ class Lab:
         test_rows = [r for r in load_rows(test_paths) if not is_discovery(r["id"])]
         self.test = [(r, *positions(self.tok, r, rng)) for r in test_rows]
         self.train_rows = [r for r in load_rows(train_paths) if is_discovery(r["id"])]
-        self.dirs = {int(k): torch.tensor(v, device=DEV) for k, v in np.load(A / "dirs.npz").items()}
+        self.dirs = {int(k): torch.tensor(v, device=DEV) for k, v in np.load(ACTS / "dirs.npz").items()}
         self.base_logp = None
 
     # ---------- neuron scoring on discovery traces ----------
@@ -132,7 +110,3 @@ class Lab:
         return {"restart_gap": float(np.mean(gaps)), "stop_lp": float(np.mean(stops)),
                 "neutral_kl": float(np.mean(kls)) if kls else 0.0}
 
-
-if __name__ == "__main__":
-    lab = Lab(sys.argv[1:], sys.argv[1:])
-    print("base", lab.evaluate(), flush=True)

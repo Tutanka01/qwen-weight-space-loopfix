@@ -7,40 +7,26 @@ activations at three kinds of positions (the activation at t-1 is what predicts 
   neutral      : random positions inside reasoning of finished traces (for side-effect checks)
 
 Only discovery prompts (odd ids) are used, the even ids are kept for evaluation.
-Usage: uv run collect_acts.py results/base_default.jsonl results/base_qwen_reco.jsonl
+Usage: uv run scripts/analysis/collect_acts.py [traces.jsonl ...]   (default: results/baseline/*.jsonl)
 """
 
 import json
 import random
-import re
 import sys
-from pathlib import Path
 
 import numpy as np
 import torch
 
-from qwen_gguf import load
+from loopfix.gguf_model import load
+from loopfix.paths import ACTS as OUT
+from loopfix.paths import TRACES
+from loopfix.traces import RESTART, build_text, is_discovery, load_rows
 
-RESTART = re.compile(r"(?m)^[\s*\-\d.()]*(Wait|Okay|Actually|Let's|Let me|Hmm|No,|But wait|Final)")
 MAX_PER_TRACE = 25
-OUT = Path("results/acts")
-
-
-def is_discovery(pid: str) -> bool:
-    return int(pid[1:]) % 2 == 1
-
-
-def build_text(tok, r):
-    msgs = ([{"role": "system", "content": r["system"]}] if r["system"] else []) + [{"role": "user", "content": r["user"]}]
-    prompt = tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True, enable_thinking=True)
-    text = prompt + r["reasoning"]
-    if not r["truncated"]:
-        text = text.rstrip() + "\n</think>"
-    return prompt, text
 
 
 def main():
-    rows = [json.loads(l) for p in sys.argv[1:] for l in Path(p).read_text().splitlines() if l.strip()]
+    rows = load_rows(sys.argv[1:] or TRACES)
     rows = [r for r in rows if is_discovery(r["id"])]
     model, tok = load(device="mps")
     n_layers = model.config.num_hidden_layers

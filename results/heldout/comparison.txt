@@ -1,4 +1,4 @@
-qwen-base-eval   n= 30  truncated= 56.7%  answered= 43.3%  median_tok= 8192  mean_tok= 5319  answer_FR=0.96
+base             n= 30  truncated= 56.7%  answered= 43.3%  median_tok= 8192  mean_tok= 5319  answer_FR=0.96
 loopfix128       n= 30  truncated= 16.7%  answered= 86.7%  median_tok= 3412  mean_tok= 4192  answer_FR=0.94
     Δ truncated  vs base: -40.0 pts  95% CI [-60.0, -20.0]
     Δ has_answer vs base: +43.3 pts  95% CI [+23.3, +63.3]

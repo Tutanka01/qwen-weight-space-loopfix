@@ -14,7 +14,7 @@ import torch
 from gguf import GGUFReader
 from gguf.quants import dequantize
 
-DEFAULT_GGUF = Path(__file__).parent / "models" / "Qwen3.5-0.8B-Q8_0.gguf"
+from loopfix.paths import BASE_GGUF as DEFAULT_GGUF
 
 
 def field(reader: GGUFReader, key: str):

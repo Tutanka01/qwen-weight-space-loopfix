@@ -1,6 +1,6 @@
 """Paired comparison of held-out runs (first file = baseline).
 
-Usage: uv run compare.py --seed 0 results/test_qwen-base-eval.jsonl results/test_loopfix128.jsonl ...
+Usage: uv run scripts/eval/compare.py --seed 0 results/heldout/base.jsonl results/heldout/loopfix128.jsonl ...
 """
 
 import argparse
@@ -46,11 +46,11 @@ def main():
     SEED = args.seed
     base_path, *others = args.files
     base = load(base_path)
-    print(row(Path(base_path).stem.replace("test_", ""), base.values()))
+    print(row(Path(base_path).stem, base.values()))
     for p in others:
         o = load(p)
         keys = sorted(base.keys() & o.keys())
-        name = Path(p).stem.replace("test_", "")
+        name = Path(p).stem
         print(row(name, (o[k] for k in keys)))
         for metric in ("truncated", "has_answer"):
             d = {k: float(o[k][metric]) - float(base[k][metric]) for k in keys}

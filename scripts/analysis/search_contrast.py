@@ -1,6 +1,6 @@
 """Search #1 (failed): ablate the restart-vs-stop contrast direction from the top-scoring ffn_down
 columns of the layers that write it (blog-like). Hurts healthy </think> predictions.
-Usage: uv run search_contrast.py   (writes results/search.json)
+Usage: uv run scripts/analysis/search_contrast.py   (writes results/search/contrast.json)
 """
 
 import json
@@ -8,16 +8,16 @@ import sys
 
 import torch
 
-from edit_lab import Lab
+from loopfix.paths import ACTS, EDITS, SEARCH, TRACES
+from loopfix.lab import Lab
 
-TRACES = ["results/base_default.jsonl", "results/base_qwen_reco.jsonl"]
 LAYERS = [14, 15, 16, 17, 18, 19, 21, 22]
 
 lab = Lab(TRACES, TRACES)
 base = lab.evaluate()
 print("base", base, flush=True)
 scores = lab.neuron_scores(LAYERS)
-torch.save(scores, "results/acts/neuron_scores.pt")
+torch.save(scores, ACTS / "neuron_scores.pt")
 for l in LAYERS:
     s = scores[l]
     top = s.topk(5)
@@ -43,4 +43,4 @@ for name, edit in candidates.items():
     results[name] = {"weights_changed": n, **m}
     print(f"{name:<28} changed={n:>9}  {m}", flush=True)
 lab.reset()
-json.dump({"base": base, **results}, open("results/search.json", "w"), indent=1)
+json.dump({"base": base, **results}, open(SEARCH / "contrast.json", "w"), indent=1)

@@ -1,7 +1,8 @@
 """Per-neuron mean activation at restart_loop / restart_ok / stop / neutral positions (discovery traces)."""
 import random, torch
-from edit_lab import Lab, positions, DEV
-TR = ["results/base_default.jsonl", "results/base_qwen_reco.jsonl"]
+from loopfix.lab import Lab, DEV
+from loopfix.paths import ACTS, TRACES as TR
+from loopfix.traces import positions
 LAYERS = [14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
 lab = Lab(TR, [])
 acts = {}
@@ -25,7 +26,7 @@ for h in hooks: h.remove()
 out = {k: {l: (S[k][l] / C[k]).cpu() for l in LAYERS} for k in kinds}
 out_abs = {k: {l: (A[k][l] / C[k]).cpu() for l in LAYERS} for k in kinds}
 proj = {l: (lab.orig[l].T @ lab.dirs[l]).cpu() for l in LAYERS}
-torch.save({"mean": out, "absmean": out_abs, "proj": proj, "counts": C}, "results/acts/neuron_stats.pt")
+torch.save({"mean": out, "absmean": out_abs, "proj": proj, "counts": C}, ACTS / "neuron_stats.pt")
 print(C)
 for l in LAYERS:
     contrib = out["restart_loop"][l] * proj[l]

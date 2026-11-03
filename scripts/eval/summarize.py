@@ -1,4 +1,4 @@
-"""Summarize measurement files: uv run summarize.py results/base_*.jsonl"""
+"""Summarize measurement files: uv run scripts/eval/summarize.py results/baseline/*.jsonl"""
 
 import json
 import sys

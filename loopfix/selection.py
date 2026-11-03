@@ -1,13 +1,15 @@
 """Selection of loop-specific MLP neurons (shared by the search scripts).
 
-Uses the per-neuron statistics written by neuron_stats.py.
+Uses the per-neuron statistics written by scripts/analysis/neuron_stats.py.
 """
 
 from functools import cache
 
 import torch
 
-STATS = "results/acts/neuron_stats.pt"
+from loopfix.paths import ACTS
+
+STATS = ACTS / "neuron_stats.pt"
 
 
 @cache
@@ -33,7 +35,7 @@ def loop_specific(max_quiet: float):
 
 
 def as_edit(cands, n):
-    """Top-n candidates -> {layer: ([neurons], direction_layer)} as expected by edit_lab.Lab.apply."""
+    """Top-n candidates -> {layer: ([neurons], direction_layer)} as expected by loopfix.lab.Lab.apply."""
     edit = {}
     for _, l, j in cands[:n]:
         edit.setdefault(l, ([], l))[0].append(j)

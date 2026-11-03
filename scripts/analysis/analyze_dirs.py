@@ -5,11 +5,10 @@ evaluated with a prompt-level split so separation is not just memorised.
 """
 
 import json
-from pathlib import Path
 
 import numpy as np
 
-A = Path("results/acts")
+from loopfix.paths import ACTS as A
 load = lambda k: np.load(A / f"{k}.npz")
 meta = [json.loads(l) for l in (A / "meta.jsonl").read_text().splitlines()]
 ids = {k: [m["id"] for m in meta if m["kind"] == k] for k in ("restart_loop", "restart_ok", "stop", "neutral")}
