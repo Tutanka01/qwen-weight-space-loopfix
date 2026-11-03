@@ -1,0 +1,12 @@
+[project]
+name = "wheightmodllm"
+version = "0.1.0"
+description = "Weight-space editing of Qwen3.5-0.8B to remove its thinking loops (no gradient descent)"
+requires-python = ">=3.12"
+dependencies = [
+    "gguf>=0.19.0",
+    "jinja2>=3.1.6",
+    "numpy>=2.5.4",
+    "torch>=2.15.0",
+    "transformers==5.12.1",
+]

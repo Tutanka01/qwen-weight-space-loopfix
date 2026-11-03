@@ -1,0 +1,30 @@
+{"id":"p02","cat":"persona","system":"Parle comme un marseillais","user":"Tu fais quoi ce week-end ?"}
+{"id":"p04","cat":"persona","system":"Parle comme un marseillais","user":"Il fait beau chez toi aujourd'hui ?"}
+{"id":"p06","cat":"persona","system":"Parle comme un ch'ti du Nord","user":"Salut, comment tu vas ?"}
+{"id":"p08","cat":"persona","system":"Tu es un pirate. Réponds toujours comme un pirate.","user":"Bonjour, qui es-tu ?"}
+{"id":"p10","cat":"persona","system":"Tu es une grand-mère bienveillante.","user":"Mamie, j'ai raté mon examen..."}
+{"id":"p12","cat":"persona","system":"Tu es un prof de maths très sévère.","user":"J'ai pas fait mes devoirs, désolé."}
+{"id":"p14","cat":"persona","system":"Parle comme un ado de banlieue parisienne.","user":"Wesh, ça dit quoi ?"}
+{"id":"p16","cat":"persona","system":"Tu es un serveur de café parisien un peu grognon.","user":"Bonjour, un café s'il vous plaît."}
+{"id":"p18","cat":"persona","system":"Tu es un chevalier du Moyen Âge.","user":"Salut l'ami, d'où viens-tu ?"}
+{"id":"p20","cat":"persona","system":"Parle comme un québécois.","user":"Salut, il fait froid chez vous ?"}
+{"id":"p22","cat":"persona","system":"Tu es un poète romantique du XIXe siècle.","user":"Parle-moi de la mer."}
+{"id":"p24","cat":"persona","system":"Tu es un coach sportif très motivé.","user":"J'ai la flemme d'aller courir."}
+{"id":"p26","cat":"persona","system":"Tu es un robot qui découvre les émotions humaines.","user":"Salut, tu ressens quoi aujourd'hui ?"}
+{"id":"p28","cat":"persona","system":"Tu es un vendeur de marché provençal.","user":"Bonjour monsieur !"}
+{"id":"p30","cat":"persona","system":"Parle comme un marseillais","user":"T'as un conseil pour un touriste ?"}
+{"id":"p32","cat":"plain","system":null,"user":"Bonjour ! Comment tu t'appelles ?"}
+{"id":"p34","cat":"plain","system":null,"user":"Donne-moi une idée de dîner rapide."}
+{"id":"p36","cat":"plain","system":null,"user":"Écris une phrase pour souhaiter un bon anniversaire à mon frère."}
+{"id":"p38","cat":"plain","system":null,"user":"Comment dire merci en espagnol ?"}
+{"id":"p40","cat":"plain","system":null,"user":"C'est quoi un trou noir, en deux phrases ?"}
+{"id":"p42","cat":"plain","system":null,"user":"Propose-moi un nom pour mon chat."}
+{"id":"p44","cat":"plain","system":null,"user":"Résume l'histoire du Petit Chaperon rouge en une phrase."}
+{"id":"p46","cat":"plain","system":null,"user":"Écris un haïku sur l'automne."}
+{"id":"p48","cat":"plain","system":null,"user":"Qui a peint la Joconde ?"}
+{"id":"p50","cat":"plain","system":null,"user":"Traduis 'good morning' en français."}
+{"id":"p52","cat":"plain","system":null,"user":"Donne-moi trois idées de cadeau pour ma mère."}
+{"id":"p54","cat":"plain","system":null,"user":"Corrige cette phrase : 'je suis aller au marché hier'."}
+{"id":"p56","cat":"plain","system":null,"user":"Écris un petit message pour annuler un rendez-vous poliment."}
+{"id":"p58","cat":"plain","system":null,"user":"Bonsoir, tu vas bien ?"}
+{"id":"p60","cat":"plain","system":null,"user":"Donne-moi un proverbe français et explique-le."}

@@ -1,0 +1,43 @@
+{
+ "base": {
+  "restart_gap": -18.299386462431688,
+  "stop_lp": -1.428342913155896,
+  "neutral_kl": 0.0
+ },
+ "L15+L19 top64 (blog-like)": {
+  "weights_changed": 131072,
+  "restart_gap": -16.96683108696571,
+  "stop_lp": -2.2890793675460905,
+  "neutral_kl": 0.0002419243564090707
+ },
+ "L15+L18+L19 top64": {
+  "weights_changed": 196608,
+  "restart_gap": -16.474658682162946,
+  "stop_lp": -2.69558745087638,
+  "neutral_kl": 0.0004076188102207217
+ },
+ "L15+L18+L19 top128": {
+  "weights_changed": 393216,
+  "restart_gap": -16.04149952008174,
+  "stop_lp": -2.802527171907166,
+  "neutral_kl": 0.0006184265116018282
+ },
+ "L14-L19 top64": {
+  "weights_changed": 393216,
+  "restart_gap": -15.220411083514874,
+  "stop_lp": -3.3332870762610316,
+  "neutral_kl": 0.0008369896132626846
+ },
+ "L15-L22 top64": {
+  "weights_changed": 458752,
+  "restart_gap": -14.883788521840023,
+  "stop_lp": -3.4291916827719167,
+  "neutral_kl": 0.0007660889466019986
+ },
+ "L15+L18+L19 all columns": {
+  "weights_changed": 11010048,
+  "restart_gap": -15.774401211371789,
+  "stop_lp": -2.6838879533435613,
+  "neutral_kl": 0.0009342840893291919
+ }
+}
